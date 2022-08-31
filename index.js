@@ -1,14 +1,12 @@
 const fs = require("fs");
-const { XMLParser} = require("fast-xml-parser")
+const XMLParser = require("fast-xml-parser")
 
 const cfgFileLocation = './nuget.config'
-
-const parser = new XMLParser();
 
 
 const curContents = fs.readFileSync(cfgFileLocation, 'utf8');
 
-const json = parser.parse(curContents, {ignoreAttributes: false});
+const json = XMLParser.parse(curContents, {ignoreAttributes: false});
 
 const sourceKeys = [];
 
