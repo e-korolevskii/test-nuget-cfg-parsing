@@ -74,7 +74,7 @@ function writeFeedToFile(
 
     if (json.configuration?.packageSources?.add) {
       const packageSources = json.configuration.packageSources.add;
-      
+
       if (Array.isArray(packageSources)) {
         packageSources.forEach((source) => {
           const value = source["@_value"];
@@ -86,11 +86,7 @@ function writeFeedToFile(
           }
         });
       } else {
-        if (
-          packageSources["@_value"]
-            .toLowerCase()
-            .includes(feedUrl.toLowerCase())
-        ) {
+        if (packageSources["@_value"].toLowerCase().includes(feedUrl.toLowerCase())) {
           const key = packageSources["@_key"];
           sourceKeys.push(key);
           core.debug(`Found a URL with key ${key}`);
