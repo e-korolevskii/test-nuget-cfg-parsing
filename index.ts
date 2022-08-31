@@ -72,9 +72,11 @@ function writeFeedToFile(
       throw new Error(`The provided NuGet.config seems invalid.`);
     }
 
-    if (typeof json.configuration?.packageSources?.add != 'undefined') {
-      if (Array.isArray(json.configuration.packageSources.add)) {
-        json.configuration.packageSources.add.forEach((source) => {
+    if (json.configuration?.packageSources?.add) {
+      const packageSources = json.configuration.packageSources.add;
+      
+      if (Array.isArray(packageSources)) {
+        packageSources.forEach((source) => {
           const value = source["@_value"];
           core.debug(`source '${value}'`);
           if (value.toLowerCase().includes(feedUrl.toLowerCase())) {
@@ -85,11 +87,11 @@ function writeFeedToFile(
         });
       } else {
         if (
-          json.configuration.packageSources.add["@_value"]
+          packageSources["@_value"]
             .toLowerCase()
             .includes(feedUrl.toLowerCase())
         ) {
-          const key = json.configuration.packageSources.add["@_key"];
+          const key = packageSources["@_key"];
           sourceKeys.push(key);
           core.debug(`Found a URL with key ${key}`);
         }
